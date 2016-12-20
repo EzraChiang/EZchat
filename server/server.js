@@ -11,6 +11,14 @@ var io = socketIO(server);
 
 app.use(express.static(publicPath));
 
+io.on('connection', (socket) => {
+  console.log('new user connected');
+
+  socket.on('disconnect', () => {
+    console.log('User was disconnected');
+  });
+});
+
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
