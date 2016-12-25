@@ -16,15 +16,17 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('new user connected');
 
-  socket.emit('newMessage', generateMessage('Admin', 'Welcome to EzChat'));
-
-  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined'));
 
   socket.on('join', (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       callback('Name and room name are required.');
     }
 
+    //io.emit -> io.to('The office').emit
+    //socket.broadcast.emit -> socket.broadcast.to('The office').emit
+    socket.join(params.room);
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to EzChat'));
+    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
     callback();
   });
 
