@@ -8,19 +8,16 @@ describe('isRealString', () => {
   var spaces = '   ';
   var passing = '  hello  '
 
-  it('should reject non-string values', (done) => {
+  it('should reject non-string values', () => {
     expect(isRealString(test)).toBe(false);
-    done();
   });
 
-  it('should reject string with only spaces', (done) => {
+  it('should reject string with only spaces', () => {
     expect(isRealString(spaces)).toBe(false);
-    done();
   });
 
-  it('should allow string with non space characters', (done) => {
+  it('should allow string with non space characters', () => {
     expect(isRealString(passing)).toBe(true);
-    done();
   });
 
 });
